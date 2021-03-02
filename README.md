@@ -1,7 +1,6 @@
 # Ray Tracing Viewer (1TD388/1MD150)
 
-This code skeleton is used as starting point for the ray tracing project in the computer graphics courses 1TD388 and 1MD150 at Uppsala University. The project loosly follows the structure of the "Ray Tracing in a Weekend"
-book, and starts from Chapter 6 in the book. To solve the tasks for the project (see course page in Studium), you mainly need to modify the files main.cpp and raytracing.h/cpp, but you might have to modify some of the other .h files as well.
+This code skeleton is used as starting point for the ray tracing project in the computer graphics courses 1TD388 and 1MD150 at Uppsala University. The project loosly follows the structure of the "Ray Tracing in a Weekend" [book](https://raytracing.github.io/books/RayTracingInOneWeekend.html), but starts from Chapter 6 in the book. To solve the tasks for the project (see course page in Studium), you mainly need to modify the files main.cpp and rt_raytracing.h/cpp, but you might have to modify some of the other .h files as well.
 
 
 ## Build instructions for Linux
@@ -17,7 +16,7 @@ In addition, you also need to install libraries for OpenGL. On for example Ubunt
 
 ### Environment variables
 
-Before building and running the model viewer, the environment variable `RT_VIEWER_ROOT` must be set to point to the directory of this `README.md` file. Example:
+Before building and running the scene viewer, the environment variable `RT_VIEWER_ROOT` must be set to point to the directory of this `README.md` file. Example:
 
     export RT_VIEWER_ROOT=$HOME/rt_viewer
 
@@ -32,7 +31,7 @@ the path in `RT_VIEWER_ROOT`, and type
     cmake ../
     make
 
-To run the program, navigate to the resulting executable (model_viewer), and type
+To run the program, navigate to the resulting executable (rt_viewer), and type
 
     ./rt_viewer
 
@@ -60,7 +59,7 @@ Define a user environment variable `RT_VIEWER_ROOT` that points to the directory
 Before you start CMake or Visual Studio or do anything else, set the `RT_VIEWER_ROOT` variable as described above.
 
 1. Open the CMake GUI.
-2. Specify the search path to the model viewer root directory in the "Where is the source code:" text box (or select that directory from the GUI).
+2. Specify the search path to the scene viewer root directory in the "Where is the source code:" text box (or select that directory from the GUI).
 3. Create a subdirectory `RT_VIEWER_ROOT\build`, and specify the search path to this directory in the "Where to build the binaries:" text box.
 4. Press the "Configure" button and choose the compiler (Visual Studio XX 20XX Win64).
 5. Press the "Configure" button again (you need to do this twice).
