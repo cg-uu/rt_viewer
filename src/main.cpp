@@ -142,8 +142,8 @@ void showGui(Context &ctx)
         rt::resetAccumulation(ctx.rtx);
     }
     if (ImGui::Checkbox("Show normals", &ctx.rtx.show_normals)) { rt::resetAccumulation(ctx.rtx); }
-    // Add more settings and parameters here
-    // ...
+
+    if (ImGui::Checkbox("Use anti-aliasing", &ctx.rtx.use_anti_aliasing)) { rt::resetAccumulation(ctx.rtx); }
 
     ImGui::Text("Progress");
     ImGui::ProgressBar(float(ctx.rtx.current_frame) / ctx.rtx.max_frames);
