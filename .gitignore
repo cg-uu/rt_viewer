@@ -1,0 +1,8 @@
+.vs
+.vs/*
+/build
+/build/*
+/build/**/*
+/out
+/out/*
+/out/**/*
