@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <vector>
+#include <random>
 
 namespace rt {
 
@@ -24,11 +25,18 @@ struct RTContext {
     bool show_normals = true;
     // Add more settings and parameters here
     // ...
+    bool use_anti_aliasing = true;
 };
 
 void setupScene(RTContext &rtx, const char *mesh_filename);
 void updateImage(RTContext &rtx);
 void resetImage(RTContext &rtx);
 void resetAccumulation(RTContext &rtx);
+
+inline double random_double() {
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
+}
 
 }  // namespace rt
