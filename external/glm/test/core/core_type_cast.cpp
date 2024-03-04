@@ -1,13 +1,5 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// OpenGL Mathematics Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Created : 2013-05-06
-// Updated : 2013-05-06
-// Licence : This source is under MIT License
-// File    : test/core/type_cast.cpp
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-#define GLM_FORCE_RADIANS
+#include <glm/gtc/constants.hpp>
+#include <glm/ext/vector_relational.hpp>
 #include <glm/glm.hpp>
 #include <algorithm>
 #include <vector>
@@ -19,33 +11,41 @@ struct my_vec2
 	float x, y;
 };
 
-int test_vec2_cast()
+static int test_vec2_cast()
 {
+	int Error(0);
+
 	glm::vec2 A(1.0f, 2.0f);
 	glm::lowp_vec2 B(A);
 	glm::mediump_vec2 C(A);
 	glm::highp_vec2 D(A);
-	
+
 	glm::vec2 E = static_cast<glm::vec2>(A);
 	glm::lowp_vec2 F = static_cast<glm::lowp_vec2>(A);
 	glm::mediump_vec2 G = static_cast<glm::mediump_vec2>(A);
 	glm::highp_vec2 H = static_cast<glm::highp_vec2>(A);
-	
-	my_vec2 I;
-	glm::vec2 J = static_cast<glm::vec2>(I);
-	glm::vec2 K(7.8f);
 
-	int Error(0);
-	
-	Error += glm::all(glm::equal(A, E)) ? 0 : 1;
-	Error += glm::all(glm::equal(B, F)) ? 0 : 1;
-	Error += glm::all(glm::equal(C, G)) ? 0 : 1;
-	Error += glm::all(glm::equal(D, H)) ? 0 : 1;
-	
+	Error += glm::all(glm::equal(A, E, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(B, F, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(C, G, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(D, H, glm::epsilon<float>())) ? 0 : 1;
+
+	my_vec2 I;
+	I.x = 1.0f;
+	I.y = 2.0f;
+	glm::vec2 J0 = static_cast<glm::vec2>(I);
+	glm::vec2 J1(1.0f, 2.0f);
+
+	Error += glm::all(glm::equal(J1, J0, glm::epsilon<float>())) ? 0 : 1;
+
+	glm::vec2 K(7.8f);
+	glm::vec2 L(7.8f, 7.8f);
+	Error += glm::all(glm::equal(K, L, glm::epsilon<float>())) ? 0 : 1;
+
 	return Error;
 }
 
-int test_vec3_cast()
+static int test_vec3_cast()
 {
 	glm::vec3 A(1.0f, 2.0f, 3.0f);
 	glm::lowp_vec3 B(A);
@@ -59,15 +59,15 @@ int test_vec3_cast()
 	
 	int Error(0);
 	
-	Error += glm::all(glm::equal(A, E)) ? 0 : 1;
-	Error += glm::all(glm::equal(B, F)) ? 0 : 1;
-	Error += glm::all(glm::equal(C, G)) ? 0 : 1;
-	Error += glm::all(glm::equal(D, H)) ? 0 : 1;
+	Error += glm::all(glm::equal(A, E, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(B, F, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(C, G, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(D, H, glm::epsilon<float>())) ? 0 : 1;
 	
 	return Error;
 }
 
-int test_vec4_cast()
+static int test_vec4_cast()
 {
 	glm::vec4 A(1.0f, 2.0f, 3.0f, 4.0f);
 	glm::lowp_vec4 B(A);
@@ -81,15 +81,15 @@ int test_vec4_cast()
 	
 	int Error(0);
 	
-	Error += glm::all(glm::equal(A, E)) ? 0 : 1;
-	Error += glm::all(glm::equal(B, F)) ? 0 : 1;
-	Error += glm::all(glm::equal(C, G)) ? 0 : 1;
-	Error += glm::all(glm::equal(D, H)) ? 0 : 1;
+	Error += glm::all(glm::equal(A, E, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(B, F, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(C, G, glm::epsilon<float>())) ? 0 : 1;
+	Error += glm::all(glm::equal(D, H, glm::epsilon<float>())) ? 0 : 1;
 	
 	return Error;
 }
 
-int test_std_copy()
+static int test_std_copy()
 {
 	int Error = 0;
 

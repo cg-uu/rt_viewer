@@ -1,28 +1,13 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// OpenGL Mathematics Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Created : 2011-01-15
-// Updated : 2011-09-13
-// Licence : This source is under MIT licence
-// File    : test/core/func_packing.cpp
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-#define GLM_FORCE_RADIANS
 #include <glm/gtc/type_precision.hpp>
 #include <glm/gtc/epsilon.hpp>
 #include <glm/vector_relational.hpp>
 #include <glm/packing.hpp>
 #include <vector>
 
-int test_packUnorm2x16()
+static int test_packUnorm2x16()
 {
 	int Error = 0;
-/*	
-	std::vector<glm::hvec2> A;
-	A.push_back(glm::hvec2(glm::half( 1.0f), glm::half( 0.0f)));
-	A.push_back(glm::hvec2(glm::half( 0.5f), glm::half( 0.7f)));
-	A.push_back(glm::hvec2(glm::half( 0.1f), glm::half( 0.2f)));
-*/
+
 	std::vector<glm::vec2> A;
 	A.push_back(glm::vec2(1.0f, 0.0f));
 	A.push_back(glm::vec2(0.5f, 0.7f));
@@ -40,7 +25,7 @@ int test_packUnorm2x16()
 	return Error;
 }
 
-int test_packSnorm2x16()
+static int test_packSnorm2x16()
 {
 	int Error = 0;
 
@@ -61,10 +46,16 @@ int test_packSnorm2x16()
 	return Error;
 }
 
-int test_packUnorm4x8()
+static int test_packUnorm4x8()
 {
 	int Error = 0;
-	
+
+	glm::uint32 Packed = glm::packUnorm4x8(glm::vec4(1.0f, 0.5f, 0.0f, 1.0f));
+	glm::u8vec4 Vec(255, 128, 0, 255);
+	glm::uint32 & Ref = *reinterpret_cast<glm::uint32*>(&Vec[0]);
+
+	Error += Packed == Ref ? 0 : 1;
+
 	std::vector<glm::vec4> A;
 	A.push_back(glm::vec4(1.0f, 0.7f, 0.3f, 0.0f));
 	A.push_back(glm::vec4(0.5f, 0.1f, 0.2f, 0.3f));
@@ -81,7 +72,7 @@ int test_packUnorm4x8()
 	return Error;
 }
 
-int test_packSnorm4x8()
+static int test_packSnorm4x8()
 {
 	int Error = 0;
 	
@@ -101,7 +92,7 @@ int test_packSnorm4x8()
 	return Error;
 }
 
-int test_packHalf2x16()
+static int test_packHalf2x16()
 {
 	int Error = 0;
 /*
@@ -128,7 +119,7 @@ int test_packHalf2x16()
 	return Error;
 }
 
-int test_packDouble2x32()
+static int test_packDouble2x32()
 {
 	int Error = 0;
 	

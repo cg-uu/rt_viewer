@@ -100,11 +100,11 @@ Windows:
 
 The application depends on the following third-party libraries, which are included in the `external` folder and built from source code during compilation:
 
-- GLEW (https://github.com/nigels-com/glew)
-- GLFW v3.1.1 (https://github.com/glfw/glfw)
-- GLM v0.9.5.4 (https://github.com/g-truc/glm)
-- ImGUI v1.50 (https://github.com/ocornut/imgui)
-- lodepng v20130128 (https://github.com/lvandeve/lodepng)
+- GLEW v2.2.0 (https://github.com/nigels-com/glew)
+- GLFW v3.4 (https://github.com/glfw/glfw)
+- GLM v1.0.1 (https://github.com/g-truc/glm)
+- ImGUI v1.90.4 (https://github.com/ocornut/imgui)
+- lodepng d398e0f 2023-12-03 (https://github.com/lvandeve/lodepng)
 
 
 ### Code style

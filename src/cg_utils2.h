@@ -1,8 +1,9 @@
 #pragma once
 
+#define GLM_ENABLE_EXPERIMENTAL
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
-#include <glm/gtx/constants.hpp>
+#include <glm/gtc/constants.hpp>
 #include <glm/gtx/quaternion.hpp>
 
 #include <iostream>

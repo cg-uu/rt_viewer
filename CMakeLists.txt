@@ -6,6 +6,9 @@ project(rt_viewer)
 # Specify build type
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 
+# Export build flags
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Add project source directories
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/src" PROJECT_SRCS)
 
@@ -31,7 +34,7 @@ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/external/glfw" ${CMAKE_CURRENT_BIN
 include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/external/glfw/include")
 
 # GLEW (used for OpenGL function loading)
-aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/external/glew/src" PROJECT_SRCS)
+list(APPEND PROJECT_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/external/glew/src/glew.c")
 include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/external/glew/include")
 add_definitions(-DGLEW_STATIC -DGLEW_NO_GLU)
 
@@ -39,12 +42,15 @@ add_definitions(-DGLEW_STATIC -DGLEW_NO_GLU)
 include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/external/glm")
 
 # lodepng (used for image I/O)
-aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/external/lodepng" PROJECT_SRCS)
+list(APPEND PROJECT_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/external/lodepng/lodepng.cpp")
 include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/external/lodepng")
 
 # Dear ImGui (used for GUI)
 aux_source_directory("${CMAKE_CURRENT_SOURCE_DIR}/external/imgui" PROJECT_SRCS)
+list(APPEND PROJECT_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends/imgui_impl_glfw.cpp")
+list(APPEND PROJECT_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends/imgui_impl_opengl3.cpp")
 include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/external/imgui")
+include_directories(SYSTEM "${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends")
 
 # Set extra compiler flags
 if(UNIX AND NOT APPLE)

@@ -1,16 +1,6 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// OpenGL Mathematics Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Created : 2011-05-25
-// Updated : 2011-05-25
-// Licence : This source is under MIT License
-// File    : test/core/type_length.cpp
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 
-int test_length_mat_non_squared()
+static int test_length_mat_non_squared()
 {
 	int Error = 0;
 
@@ -31,7 +21,7 @@ int test_length_mat_non_squared()
 	return Error;
 }
 
-int test_length_mat()
+static int test_length_mat()
 {
 	int Error = 0;
 	
@@ -52,9 +42,8 @@ int test_length_mat()
 	return Error;
 }
 
-int test_length_vec()
+static int test_length_vec()
 {
-
 	int Error = 0;
 	
 	Error += glm::vec2().length() == 2 ? 0 : 1;
