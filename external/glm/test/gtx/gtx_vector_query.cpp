@@ -1,17 +1,10 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// OpenGL Mathematics Copyright (c) 2005 - 2014 G-Truc Creation (www.g-truc.net)
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Created : 2011-11-23
-// Updated : 2011-11-23
-// Licence : This source is under MIT licence
-// File    : test/gtx/vector_query.cpp
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 #include <glm/gtx/vector_query.hpp>
 
-int test_areCollinear()
+static int test_areCollinear()
 {
 	int Error(0);
 
@@ -33,7 +26,7 @@ int test_areCollinear()
 	return Error;
 }
 
-int test_areOrthogonal()
+static int test_areOrthogonal()
 {
 	int Error(0);
 	
@@ -43,7 +36,7 @@ int test_areOrthogonal()
 	return Error;
 }
 
-int test_isNormalized()
+static int test_isNormalized()
 {
 	int Error(0);
 	
@@ -53,7 +46,7 @@ int test_isNormalized()
 	return Error;
 }
 
-int test_isNull()
+static int test_isNull()
 {
 	int Error(0);
 	
@@ -63,7 +56,7 @@ int test_isNull()
 	return Error;
 }
 
-int test_areOrthonormal()
+static int test_areOrthonormal()
 {
 	int Error(0);
 

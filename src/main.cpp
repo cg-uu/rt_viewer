@@ -11,7 +11,8 @@
 #include <GLFW/glfw3.h>
 
 #include <imgui.h>
-#include <imgui_impl_glfw_gl3.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -203,7 +204,7 @@ void errorCallback(int /*error*/, const char *description)
 void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 {
     // Forward event to GUI
-    ImGui_ImplGlfwGL3_KeyCallback(window, key, scancode, action, mods);
+    ImGui_ImplGlfw_KeyCallback(window, key, scancode, action, mods);
     if (ImGui::GetIO().WantCaptureKeyboard) { return; }  // Skip other handling
 
     Context *ctx = static_cast<Context *>(glfwGetWindowUserPointer(window));
@@ -213,14 +214,14 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 void charCallback(GLFWwindow *window, unsigned int codepoint)
 {
     // Forward event to GUI
-    ImGui_ImplGlfwGL3_CharCallback(window, codepoint);
+    ImGui_ImplGlfw_CharCallback(window, codepoint);
     if (ImGui::GetIO().WantTextInput) { return; }  // Skip other handling
 }
 
 void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
 {
     // Forward event to GUI
-    ImGui_ImplGlfwGL3_MouseButtonCallback(window, button, action, mods);
+    ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
     if (ImGui::GetIO().WantCaptureMouse) { return; }  // Skip other handling
 
     double x, y;
@@ -283,14 +284,18 @@ int main(void)
     // Load OpenGL functions
     glewExperimental = true;
     GLenum status = glewInit();
-    if (status != GLEW_OK) {
+    // Ignore NO_GLX_DISPLAY errors in case we're running on wayland.
+    // See: https://github.com/nigels-com/glew/issues/172
+    if (status != GLEW_OK && status != GLEW_ERROR_NO_GLX_DISPLAY) {
         std::cerr << "Error: " << glewGetErrorString(status) << std::endl;
         std::exit(EXIT_FAILURE);
     }
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 
     // Initialize GUI
-    ImGui_ImplGlfwGL3_Init(ctx.window, false /*do not install callbacks*/);
+    ImGui::CreateContext();
+    ImGui_ImplGlfw_InitForOpenGL(ctx.window, false /*do not install callbacks*/);
+    ImGui_ImplOpenGL3_Init("#version 330");
 
     // Initialize rendering
     glGenVertexArrays(1, &ctx.emptyVAO);
@@ -301,13 +306,19 @@ int main(void)
     while (!glfwWindowShouldClose(ctx.window)) {
         glfwPollEvents();
         ctx.elapsed_time = glfwGetTime();
-        ImGui_ImplGlfwGL3_NewFrame();
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
         display(ctx);
         ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         glfwSwapBuffers(ctx.window);
     }
 
     // Shutdown
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwDestroyWindow(ctx.window);
     glfwTerminate();
     std::exit(EXIT_SUCCESS);
